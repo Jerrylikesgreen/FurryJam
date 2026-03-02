@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cwkrisrlbe45m"]
 
 [ext_resource type="PackedScene" uid="uid://c1mh6xrrbxe34" path="res://scenes/player.tscn" id="2_8od7v"]
-[ext_resource type="Script" uid="uid://cnovkugmtb7bt" path="res://visual_scripts/new_script.torch" id="2_bl13t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8od7v"]
 sky_top_color = Color(0.45467585, 0.610864, 0.9549419, 1)
@@ -47,7 +46,6 @@ speed = 8.0
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1697077277]
 physics_material_override = SubResource("PhysicsMaterial_35xla")
-script = ExtResource("2_bl13t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1505154641]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9876828e-06, -0.0056901574, -0.00010371208)
