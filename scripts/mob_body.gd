@@ -37,11 +37,18 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 
-	print("Velocity before move:", velocity)
 
 	move_and_slide()
 	_update_facing()
 	_update_animation()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider and collider is PlayerBody:
+			collider.hit(global_position)
+			print("Hit PLayer")
+			
 	
 func _update_facing() -> void:
 	if _hit or knockback_timer > 0:
@@ -65,7 +72,6 @@ func get_hit() -> void:
 	knockback_timer = knockback_duration
 	knockback_timer = knockback_duration
 
-	print("Knockback velocity set to:", velocity)
 
 func _on_hit_animation_finished()->void:
 	_hit = false

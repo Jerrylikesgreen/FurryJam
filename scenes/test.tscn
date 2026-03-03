@@ -44,6 +44,10 @@ shadow_enabled = true
 [node name="CharacterBody3D" parent="." unique_id=1760293704 instance=ExtResource("2_8od7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.850668, 1.5838685, -0.016652822)
 speed = 8.0
+jump_velocity = 10.5
+upward_boost = 6.0
+knockback_force = 20.0
+knockback_duration = 0.08
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1697077277]
 collision_layer = 8

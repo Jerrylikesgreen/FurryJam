@@ -422,6 +422,11 @@ rings = 2
 [node name="PlayerBody" type="CharacterBody3D" unique_id=1007714887]
 collision_mask = 8
 script = ExtResource("1_cvnsp")
+speed = null
+jump_velocity = null
+upward_boost = null
+knockback_force = null
+knockback_duration = null
 
 [node name="Sprite" type="AnimatedSprite3D" parent="." unique_id=1264239905]
 pixel_size = 0.1
