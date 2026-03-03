@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://phselufguvol"
-path.s3tc="res://.godot/imported/alley-night-cyber-punk-theme-vector-illustration-background-169926707.jpg-e6a6ecda509841c3e56a93325dcbd664.s3tc.ctex"
+uid="uid://b7u63rjutfai3"
+path.s3tc="res://.godot/imported/HumanIdle.png-49dfed1990150b79f66f96ef903c2654.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/alley-night-cyber-punk-theme-vector-illustration-background-169926707.jpg"
-dest_files=["res://.godot/imported/alley-night-cyber-punk-theme-vector-illustration-background-169926707.jpg-e6a6ecda509841c3e56a93325dcbd664.s3tc.ctex"]
+source_file="res://assets/placeholders/HumanIdle.png"
+dest_files=["res://.godot/imported/HumanIdle.png-49dfed1990150b79f66f96ef903c2654.s3tc.ctex"]
 
 [params]
 
