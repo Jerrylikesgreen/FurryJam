@@ -5,6 +5,15 @@ extends CharacterBody3D
 @export var jump_velocity: float = 10.5
 @onready var player_controller: PlayerController = $PlayerController
 @onready var sprite: AnimatedSprite3D = $Sprite
+@onready var hit_range: HitRange = %HitRange
+@export var upward_boost := 6.0
+@export var knockback_force := 20.0
+@export var knockback_duration := 0.08
+var _hit: bool = false
+var _facing := 1
+var knockback_timer := 0.0
+
+
 
 enum AnimationState {  IDLE, STRONG, WEAK, WALK, JUMP, HIT, DEAD}
 var _current_animation_state: AnimationState = AnimationState.IDLE
@@ -32,26 +41,66 @@ func _on_move(dir: Vector2) -> void:
 func _on_weak_attack() -> void:
 	print("[PlayerBody] Weak Attack Received")
 	_set_animation_state(AnimationState.WEAK)
+	hit_range.hit()
 
 func _on_strong_attack() -> void:
 	print("[PlayerBody] Strong Attack Received")
 	_set_animation_state(AnimationState.STRONG)
+	hit_range.hit()
+
+
+
+
+
+
+
+func hit(from_position: Vector3) -> void:
+	if knockback_timer > 0:
+		return  # Already in knockback
+
+	_set_animation_state(AnimationState.HIT)
+
+	# Correct horizontal knockback: away from attacker
+	var knockback_dir = global_position - from_position
+	knockback_dir.y = 0  # ignore vertical
+	knockback_dir = knockback_dir * knockback_force
+
+	# Apply horizontal + vertical knockback
+	velocity.x = knockback_dir.x
+	velocity.z = knockback_dir.z
+	velocity.y = upward_boost
+
+	knockback_timer = knockback_duration
+	_hit = true
+
+	print("HIT! Knockback velocity set to:", velocity)
 
 func _physics_process(delta: float) -> void:
-	# Horizontal movement
-	velocity.x = move_input.x * speed
-	velocity.z = move_input.y * speed
+	# Update input
+	move_input = Vector2(
+		Input.get_action_strength("right") - Input.get_action_strength("left"),
+		Input.get_action_strength("down") - Input.get_action_strength("up")
+	).normalized()
+
+	if knockback_timer > 0:
+		# Knockback in progress, preserve horizontal velocity
+		knockback_timer -= delta
+	else:
+		# Only apply input movement if NOT in knockback
+		velocity.x = move_input.x * speed
+		velocity.z = move_input.y * speed
+
+		# Jump
+		if is_on_floor() and Input.is_action_just_pressed("jump"):
+			velocity.y = jump_velocity
 
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	else:
+		if velocity.y < 0:
+			velocity.y = 0
 
-	# Jump
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y = jump_velocity
-
-	# Move character
-	
 	move_and_slide()
 	_update_facing()
 	update_animation()
@@ -102,7 +151,19 @@ func update_animation() -> void:
 		_set_animation_state(AnimationState.IDLE)
 
 func _update_facing() -> void:
-	sprite.flip_h = not _right_facing
+	var offset := 0.5 # distance in front of mob
+	
+	if velocity.x > 0:
+		sprite.flip_h = false
+		_facing = 1
+		hit_range.position.x = offset
+	elif velocity.x < 0:
+		sprite.flip_h = true
+		_facing = -1
+		hit_range.position.x = -offset
+
+
+
 
 func _on_animation_finished() -> void:
 	if _current_animation_state in [
