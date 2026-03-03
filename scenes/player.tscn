@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://c1mh6xrrbxe34"]
+[gd_scene format=3 uid="uid://c1mh6xrrbxe34"]
 
 [ext_resource type="Script" uid="uid://c0tmpqkcegc6y" path="res://scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b7u63rjutfai3" path="res://assets/placeholders/HumanIdle.png" id="2_qhqgy"]
@@ -419,10 +419,11 @@ bottom_radius = 0.3
 height = 0.2
 rings = 2
 
-[node name="PlayerBody" type="CharacterBody3D"]
+[node name="PlayerBody" type="CharacterBody3D" unique_id=1007714887]
+collision_mask = 8
 script = ExtResource("1_cvnsp")
 
-[node name="Sprite" type="AnimatedSprite3D" parent="."]
+[node name="Sprite" type="AnimatedSprite3D" parent="." unique_id=1264239905]
 pixel_size = 0.1
 billboard = 1
 double_sided = false
@@ -431,19 +432,21 @@ sprite_frames = SubResource("SpriteFrames_6t5aa")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=400785852]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01846797, 0.02455765, 0.0046109557)
 shape = SubResource("CapsuleShape3D_qhqgy")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1401134619]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.645805, 7.879664)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=330179222]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31843024, 0)
 cast_shadow = 3
 mesh = SubResource("CylinderMesh_6t5aa")
 
-[node name="PlayerController" type="Node" parent="."]
+[node name="PlayerController" type="Node" parent="." unique_id=219595080]
 script = ExtResource("3_qhqgy")
 
-[node name="HitRange" parent="." instance=ExtResource("10_y4r1p")]
+[node name="HitRange" parent="." unique_id=109148305 instance=ExtResource("10_y4r1p")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)

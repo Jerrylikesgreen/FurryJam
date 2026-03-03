@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bujflot7lre6n"]
+[gd_scene format=3 uid="uid://bujflot7lre6n"]
 
 [ext_resource type="Script" uid="uid://c2hvw7xt0hy37" path="res://scripts/hit_range.gd" id="1_hymn4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ur7pv"]
-radius = 1.0
 
-[node name="HitRange" type="Area3D"]
+[node name="HitRange" type="Area3D" unique_id=753774947]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_hymn4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1585196124]
 shape = SubResource("SphereShape3D_ur7pv")
+debug_color = Color(0.88205594, 0.22604182, 0.627307, 0.41960785)

@@ -83,6 +83,7 @@ strong_attack={
 3d_physics/layer_1="Player"
 3d_physics/layer_2="Mob"
 3d_physics/layer_3="Projectile"
+3d_physics/layer_4="Floor"
 
 [physics]
 

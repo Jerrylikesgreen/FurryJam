@@ -5,6 +5,7 @@ extends CharacterBody3D
 @export var jump_velocity: float = 10.5
 @onready var player_controller: PlayerController = $PlayerController
 @onready var sprite: AnimatedSprite3D = $Sprite
+@onready var hit_range: HitRange = %HitRange
 
 enum AnimationState {  IDLE, STRONG, WEAK, WALK, JUMP, HIT, DEAD}
 var _current_animation_state: AnimationState = AnimationState.IDLE
@@ -32,10 +33,12 @@ func _on_move(dir: Vector2) -> void:
 func _on_weak_attack() -> void:
 	print("[PlayerBody] Weak Attack Received")
 	_set_animation_state(AnimationState.WEAK)
+	hit_range.hit()
 
 func _on_strong_attack() -> void:
 	print("[PlayerBody] Strong Attack Received")
 	_set_animation_state(AnimationState.STRONG)
+	hit_range.hit()
 
 func _physics_process(delta: float) -> void:
 	# Horizontal movement
@@ -102,7 +105,14 @@ func update_animation() -> void:
 		_set_animation_state(AnimationState.IDLE)
 
 func _update_facing() -> void:
-	sprite.flip_h = not _right_facing
+	var offset := 0.5 # distance in front of mob
+	
+	if velocity.x > 0:
+		sprite.flip_h = false
+		hit_range.position.x = offset
+	elif velocity.x < 0:
+		sprite.flip_h = true
+		hit_range.position.x = -offset
 
 func _on_animation_finished() -> void:
 	if _current_animation_state in [

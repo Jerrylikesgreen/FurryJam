@@ -14,6 +14,8 @@ func _on_animation_finished()->void:
 		_hit = false
 		hit_animation_ended.emit()
 
-func get_hit()->void:
+func is_hit()->void:
 	_hit = true
 	play("hit")
+	print(get_animation())
+	
