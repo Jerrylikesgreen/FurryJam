@@ -32,6 +32,9 @@ size = Vector3(50, 0.5, 25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc4db"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl13t"]
+size = Vector3(49.682007, 1, 1)
+
 [node name="TestWorld" type="Node3D" unique_id=214817827]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1279823189]
@@ -73,3 +76,23 @@ mesh = SubResource("BoxMesh_qc4db")
 
 [node name="Mob" parent="." unique_id=1017828540 instance=ExtResource("1_bl13t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84118, 1.6869072, 4.394696)
+
+[node name="WorldBoundary" type="Area3D" parent="." unique_id=176385135]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBoundary" unique_id=849461743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 0.8143493, 11.941864)
+shape = SubResource("BoxShape3D_bl13t")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="WorldBoundary" unique_id=1923537233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 0.8143493, -11.736097)
+shape = SubResource("BoxShape3D_bl13t")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="WorldBoundary" unique_id=948882638]
+transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, 24.437536, 0.8143493, 0.5873785)
+shape = SubResource("BoxShape3D_bl13t")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="WorldBoundary" unique_id=68737773]
+transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, -24.241447, 0.8143493, 0.5873785)
+shape = SubResource("BoxShape3D_bl13t")

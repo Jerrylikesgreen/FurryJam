@@ -73,7 +73,6 @@ func hit(from_position: Vector3) -> void:
 	knockback_timer = knockback_duration
 	_hit = true
 
-	print("HIT! Knockback velocity set to:", velocity)
 
 func _physics_process(delta: float) -> void:
 	# Update input

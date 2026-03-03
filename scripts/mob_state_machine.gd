@@ -1,7 +1,17 @@
 class_name MobStateMachine extends Node
 
-enum MobState { IDLE, CHASE, EXPLORE, BATTLE}
+
+
+signal state_changed(state: MobState)
+signal state_ended(state: MobState)
+
+
+
 @onready var mob_state_machine_timer: Timer = %MobStateMachineTimer
+
+
+
+enum MobState { IDLE, CHASE, EXPLORE, BATTLE}
 
 var mob_state_to_string: Dictionary = {
 	MobState.IDLE : "Idle", 
@@ -16,8 +26,6 @@ var mob_state_to_string: Dictionary = {
 var _current_state: MobState = MobState.IDLE
 var _prior_state: MobState
 
-signal state_changed(state: MobState)
-signal state_ended(state: MobState)
 
 func _ready() -> void:
 	_run_state_machine()
@@ -29,6 +37,10 @@ func idle_result(value: bool)->void:
 	else:
 		_change_state(MobState.CHASE)
 
+func explore_result() ->void:
+	_change_state(MobState.IDLE)
+	print("explore result received")
+
 func _run_state_machine()->void:
 	match _current_state:
 		MobState.IDLE:
@@ -37,7 +49,8 @@ func _run_state_machine()->void:
 		MobState.CHASE:
 			pass
 		MobState.EXPLORE:
-			pass
+			print("Explore logic")
+			mob_state_machine_timer.start(3.0)
 		MobState.BATTLE:
 			pass
 	
@@ -48,19 +61,13 @@ func _change_state(state: MobState)->void:
 	_current_state = state
 	
 	state_changed.emit(_current_state)
+	_run_state_machine()
 	print("State machine changd to -> " , mob_state_to_string[_current_state])
 
 
 func _on_time_out()->void:
-	match _current_state:
-		MobState.IDLE:
-			state_ended.emit(_current_state)
-			pass
-		MobState.CHASE:
-			pass
-		MobState.EXPLORE:
-			pass
-		MobState.BATTLE:
-			pass
+	state_ended.emit(_current_state)
+	print("State machine emited state ended to ->   " , mob_state_to_string[_current_state])
+
 	
-	print("State machine emited state ended to -> " , mob_state_to_string[_current_state])
+	
