@@ -1,16 +1,17 @@
-[gd_scene format=3 uid="uid://cb5wwfnyxck1b"]
+[gd_scene load_steps=69 format=3 uid="uid://cb5wwfnyxck1b"]
 
 [ext_resource type="Texture2D" uid="uid://e11bdv0envq1" path="res://assets/placeholders/HumanSoulDie.png" id="1_1qmh0"]
-[ext_resource type="Script" uid="uid://b14chmvmnwilu" path="res://mob.gd" id="1_gfurk"]
-[ext_resource type="Script" uid="uid://cilyr7gvrvpdt" path="res://mob_body.gd" id="2_7ulmv"]
+[ext_resource type="Script" uid="uid://b14chmvmnwilu" path="res://scripts/mob.gd" id="1_gfurk"]
+[ext_resource type="Script" uid="uid://cilyr7gvrvpdt" path="res://scripts/mob_body.gd" id="2_7ulmv"]
 [ext_resource type="Texture2D" uid="uid://didmxmxrfitl7" path="res://assets/placeholders/HumanDmg.png" id="2_gfurk"]
 [ext_resource type="Texture2D" uid="uid://b7u63rjutfai3" path="res://assets/placeholders/HumanIdle.png" id="3_ieysi"]
 [ext_resource type="Texture2D" uid="uid://bbys3l8vf74h" path="res://assets/placeholders/HumanJump.png" id="4_cixyi"]
 [ext_resource type="Texture2D" uid="uid://bamdraga8hngt" path="res://assets/placeholders/HumanChargedAttack.png" id="5_7ulmv"]
 [ext_resource type="Texture2D" uid="uid://cu0lix8e86iys" path="res://assets/placeholders/HumanWalk.png" id="6_pcqmr"]
 [ext_resource type="Texture2D" uid="uid://dag13qbr64eni" path="res://assets/placeholders/HumanAttack.png" id="7_jbnni"]
-[ext_resource type="Script" uid="uid://bn3jvjismvf1b" path="res://detection_range.gd" id="9_cixyi"]
-[ext_resource type="Script" uid="uid://bnfe2wpxsry01" path="res://mob_state_machine.gd" id="9_ieysi"]
+[ext_resource type="Script" uid="uid://bn3jvjismvf1b" path="res://scripts/detection_range.gd" id="9_cixyi"]
+[ext_resource type="Script" uid="uid://bnfe2wpxsry01" path="res://scripts/mob_state_machine.gd" id="9_ieysi"]
+[ext_resource type="Script" uid="uid://biibln67mfo37" path="res://scripts/mob_sprite.gd" id="10_m0elm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("1_1qmh0")
@@ -423,15 +424,15 @@ rings = 2
 [sub_resource type="SphereShape3D" id="SphereShape3D_ieysi"]
 radius = 4.0
 
-[node name="Mob" type="Node3D" unique_id=1017828540]
+[node name="Mob" type="Node3D"]
 script = ExtResource("1_gfurk")
 
-[node name="MobBody" type="CharacterBody3D" parent="." unique_id=735608483]
+[node name="MobBody" type="CharacterBody3D" parent="."]
 unique_name_in_owner = true
 collision_layer = 2
 script = ExtResource("2_7ulmv")
 
-[node name="MobSprite" type="AnimatedSprite3D" parent="MobBody" unique_id=418580220]
+[node name="MobSprite" type="AnimatedSprite3D" parent="MobBody"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.069460005, -0.0419558, 0)
 pixel_size = 0.1
@@ -439,31 +440,32 @@ billboard = 1
 double_sided = false
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_yscv0")
-animation = &"idle"
+animation = &"hit"
 autoplay = "idle"
+script = ExtResource("10_m0elm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody" unique_id=396758136]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01846797, 0.02455765, 0.0046109557)
 shape = SubResource("CapsuleShape3D_jfba5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MobBody" unique_id=1957076823]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MobBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31843024, 0)
 cast_shadow = 3
 mesh = SubResource("CylinderMesh_dy6sc")
 
-[node name="MobDetectionRange" type="Area3D" parent="MobBody" unique_id=1423137072]
+[node name="MobDetectionRange" type="Area3D" parent="MobBody"]
 unique_name_in_owner = true
 collision_layer = 0
 script = ExtResource("9_cixyi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/MobDetectionRange" unique_id=864158622]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/MobDetectionRange"]
 shape = SubResource("SphereShape3D_ieysi")
 debug_color = Color(0.7712439, 0.3347475, 0.74544847, 0.41960785)
 
-[node name="MobStateMachine" type="Node" parent="." unique_id=1070774617]
+[node name="MobStateMachine" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_ieysi")
 
-[node name="MobStateMachineTimer" type="Timer" parent="MobStateMachine" unique_id=70305700]
+[node name="MobStateMachineTimer" type="Timer" parent="MobStateMachine"]
 unique_name_in_owner = true
 one_shot = true

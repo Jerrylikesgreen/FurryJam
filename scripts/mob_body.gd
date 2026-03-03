@@ -2,29 +2,31 @@ class_name MobBody extends CharacterBody3D
 
 @export var speed: float = 2.0
 @export var move_direction: float = -1.0 # -1 = left, 1 = right
-@onready var mob_sprite: AnimatedSprite3D = %MobSprite
+@onready var mob_sprite: MobSprite = %MobSprite
 
 var target_player: PlayerBody = null
+var _hit: bool = false
+
+
+func _ready() -> void:
+	mob_sprite.hit_animation_ended.connect(_on_hit_animation_finished)
 
 func _physics_process(delta: float) -> void:
+	
+	if _hit:
+		return
+	
 	if target_player:
-		print("Target Player:", target_player)
-		print("Mob Pos:", global_position)
-		print("Player Pos:", target_player.global_position)
 
 		# Direction toward player (ignore height difference)
 		var direction: Vector3 = target_player.global_position - global_position
 		direction.y = 0
 		direction = direction.normalized()
 
-		print("Direction:", direction)
 
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
-
-		print("Velocity Set To:", velocity)
 	else:
-		print("No target player.")
 		velocity.x = 0
 		velocity.z = 0
 
@@ -34,7 +36,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	print("New Position:", global_position)
 
 	_update_facing()
 	_update_animation()
@@ -44,6 +45,13 @@ func _update_facing() -> void:
 		mob_sprite.flip_h = false
 	elif velocity.x < 0:
 		mob_sprite.flip_h = true
+
+func get_hit()->void:
+	print("Get Hit called ")
+	mob_sprite.is_hit()
+
+func _on_hit_animation_finished()->void:
+	_hit = false
 
 func _update_animation() -> void:
 	if not is_on_floor():

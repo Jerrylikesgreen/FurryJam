@@ -1,14 +1,15 @@
-[gd_scene format=3 uid="uid://c1mh6xrrbxe34"]
+[gd_scene load_steps=66 format=3 uid="uid://c1mh6xrrbxe34"]
 
 [ext_resource type="Script" uid="uid://c0tmpqkcegc6y" path="res://scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b7u63rjutfai3" path="res://assets/placeholders/HumanIdle.png" id="2_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://e11bdv0envq1" path="res://assets/placeholders/HumanSoulDie.png" id="2_smehm"]
-[ext_resource type="Script" uid="uid://n66uhmc2exqp" path="res://scenes/player_controler.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://n66uhmc2exqp" path="res://scripts/player_controler.gd" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://didmxmxrfitl7" path="res://assets/placeholders/HumanDmg.png" id="3_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://bbys3l8vf74h" path="res://assets/placeholders/HumanJump.png" id="5_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://bamdraga8hngt" path="res://assets/placeholders/HumanChargedAttack.png" id="5_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cu0lix8e86iys" path="res://assets/placeholders/HumanWalk.png" id="6_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dag13qbr64eni" path="res://assets/placeholders/HumanAttack.png" id="7_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://bujflot7lre6n" path="res://scenes/hit_range.tscn" id="10_y4r1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_smehm")
@@ -418,29 +419,31 @@ bottom_radius = 0.3
 height = 0.2
 rings = 2
 
-[node name="PlayerBody" type="CharacterBody3D" unique_id=1760293704]
+[node name="PlayerBody" type="CharacterBody3D"]
 script = ExtResource("1_cvnsp")
 
-[node name="Sprite" type="AnimatedSprite3D" parent="." unique_id=439478488]
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.1
 billboard = 1
 double_sided = false
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6t5aa")
-animation = &"jump"
+animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095224365]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01846797, 0.02455765, 0.0046109557)
 shape = SubResource("CapsuleShape3D_qhqgy")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1615042597]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881907, 0, -0.25881907, 0.9659258, 0, 2.645805, 7.879664)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=767318605]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31843024, 0)
 cast_shadow = 3
 mesh = SubResource("CylinderMesh_6t5aa")
 
-[node name="PlayerController" type="Node" parent="." unique_id=686755841]
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource("3_qhqgy")
+
+[node name="HitRange" parent="." instance=ExtResource("10_y4r1p")]
