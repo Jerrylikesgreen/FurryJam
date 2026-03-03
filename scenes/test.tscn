@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cwkrisrlbe45m"]
 
+[ext_resource type="PackedScene" uid="uid://cb5wwfnyxck1b" path="res://mob.tscn" id="1_bl13t"]
 [ext_resource type="PackedScene" uid="uid://c1mh6xrrbxe34" path="res://scenes/player.tscn" id="2_8od7v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8od7v"]
@@ -55,11 +56,14 @@ mesh = SubResource("BoxMesh_i3aeo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06576538, 0, -0.06072998)
 shape = SubResource("BoxShape3D_lc1oi")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=914300799]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor" unique_id=914300799]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0013947, 1.3124082, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=739633547]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D" unique_id=739633547]
 shape = SubResource("BoxShape3D_8od7v")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=428602347]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor/StaticBody3D" unique_id=428602347]
 mesh = SubResource("BoxMesh_qc4db")
+
+[node name="Mob" parent="." unique_id=1017828540 instance=ExtResource("1_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84118, 1.6869072, 4.394696)
