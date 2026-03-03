@@ -459,6 +459,7 @@ mesh = SubResource("CylinderMesh_dy6sc")
 [node name="MobDetectionRange" type="Area3D" parent="MobBody" unique_id=1028670662]
 unique_name_in_owner = true
 collision_layer = 0
+collision_mask = 17
 script = ExtResource("9_cixyi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/MobDetectionRange" unique_id=1807867911]
