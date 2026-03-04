@@ -6,6 +6,8 @@ class_name Mob extends Node3D
 @onready var mob_sprite: MobSprite = %MobSprite
 @onready var mob_state_machine: MobStateMachine = %MobStateMachine
 @onready var mob_detection_range: MobDetectionRange = %MobDetectionRange
+@onready var world_boundary_detection: Area3D = $MobBody/WorldBoundaryDetection
+@onready var attack_range: AttackRange = %AttackRange
 
 
 
@@ -13,13 +15,32 @@ class_name Mob extends Node3D
 func _ready() -> void:
 	mob_state_machine.state_changed.connect(_on_state_changed)
 	mob_state_machine.state_ended.connect(_on_state_ended)
+	mob_state_machine.attack_logic_start.connect(_on_attack_logic_start)
 	mob_detection_range.player_detected.connect(_on_player_detected)
 	mob_detection_range.player_not_detected.connect(_on_player_not_detected)
-	mob_detection_range.world_boundary_detected.connect(_on_world_boundary_detected)
+	world_boundary_detection.area_entered.connect(_on_world_boundary_detected)
+	mob_body.entered_attack_range.connect(_on_entered_attack_range)
+	mob_body.exited_attack_range.connect(_on_exited_attack_range)
+	attack_range.player_hit.connect(_on_player_hit)
 
+
+func _on_attack_logic_start() -> void:
+	mob_body.attack() 
+	print("on attack")
+
+func _on_player_hit()->void:
+	mob_sprite.attack()
+
+
+func _on_entered_attack_range()->void:
+	mob_state_machine.enter_battle(true)
+
+func _on_exited_attack_range()->void:
+	mob_state_machine.enter_battle(false)
 
 func _on_world_boundary_detected()->void:
 	mob_body.world_bound_detected()
+	print("Word Detected")
 
 func _on_player_detected(player: PlayerBody) -> void:
 	mob_body.target_player = player

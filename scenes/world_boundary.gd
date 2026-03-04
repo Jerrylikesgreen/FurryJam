@@ -1,0 +1,1 @@
+class_name WorldBoundary extends StaticBody3D

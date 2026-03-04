@@ -4,7 +4,7 @@ class_name MobStateMachine extends Node
 
 signal state_changed(state: MobState)
 signal state_ended(state: MobState)
-
+signal attack_logic_start
 
 
 @onready var mob_state_machine_timer: Timer = %MobStateMachineTimer
@@ -27,6 +27,8 @@ var _current_state: MobState = MobState.IDLE
 var _prior_state: MobState
 
 
+
+
 func _ready() -> void:
 	_run_state_machine()
 	mob_state_machine_timer.timeout.connect(_on_time_out)
@@ -34,6 +36,13 @@ func _ready() -> void:
 func idle_result(value: bool)->void:
 	if value == false:
 		_change_state(MobState.EXPLORE)
+	else:
+		_change_state(MobState.CHASE)
+
+
+func enter_battle(value: bool)->void:
+	if value:
+		_change_state(MobState.BATTLE)
 	else:
 		_change_state(MobState.CHASE)
 
@@ -52,7 +61,7 @@ func _run_state_machine()->void:
 			print("Explore logic")
 			mob_state_machine_timer.start(3.0)
 		MobState.BATTLE:
-			pass
+			mob_state_machine_timer.start(3.0)
 	
 	print("State machine is running -> " , mob_state_to_string[_current_state])
 
@@ -66,7 +75,23 @@ func _change_state(state: MobState)->void:
 
 
 func _on_time_out()->void:
-	state_ended.emit(_current_state)
+	
+	match _current_state:
+		
+		MobState.IDLE:
+			state_ended.emit(_current_state)
+			
+		MobState.CHASE:
+			state_ended.emit(_current_state)
+			
+		MobState.EXPLORE:
+			_change_state(MobState.IDLE)
+			
+		MobState.BATTLE:
+			pass
+			attack_logic_start.emit()
+
+	
 	print("State machine emited state ended to ->   " , mob_state_to_string[_current_state])
 
 	

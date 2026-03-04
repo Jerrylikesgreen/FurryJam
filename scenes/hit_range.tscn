@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c2hvw7xt0hy37" path="res://scripts/hit_range.gd" id="1_hymn4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ur7pv"]
+radius = 1.0
 
 [node name="HitRange" type="Area3D" unique_id=753774947]
 collision_layer = 0

@@ -2,16 +2,9 @@ class_name MobDetectionRange extends Area3D
 
 signal player_detected(player: PlayerBody)
 signal player_not_detected
-signal world_boundary_detected
 
 
-func _ready() -> void:
-	area_entered.connect(_on_area_entered)
 
-
-func _on_area_entered(area: Area3D)->void:
-	world_boundary_detected.emit()
-	pass
 
 
 func detect_area() -> void:

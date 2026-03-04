@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bn3jvjismvf1b" path="res://scripts/detection_range.gd" id="9_cixyi"]
 [ext_resource type="Script" uid="uid://bnfe2wpxsry01" path="res://scripts/mob_state_machine.gd" id="9_ieysi"]
 [ext_resource type="Script" uid="uid://biibln67mfo37" path="res://scripts/mob_sprite.gd" id="10_m0elm"]
+[ext_resource type="Script" uid="uid://ry77jglc0tk4" path="res://scenes/attack_range.gd" id="12_fla60"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("1_1qmh0")
@@ -424,13 +425,19 @@ rings = 2
 [sub_resource type="SphereShape3D" id="SphereShape3D_ieysi"]
 radius = 4.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_m0elm"]
+radius = 0.95990294
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fla60"]
+radius = 1.2369984
+
 [node name="Mob" type="Node3D" unique_id=1799395835]
 script = ExtResource("1_gfurk")
 
 [node name="MobBody" type="CharacterBody3D" parent="." unique_id=1805224047]
 unique_name_in_owner = true
 collision_layer = 2
-collision_mask = 9
+collision_mask = 25
 script = ExtResource("2_7ulmv")
 
 [node name="MobSprite" type="AnimatedSprite3D" parent="MobBody" unique_id=1130067461]
@@ -441,10 +448,8 @@ billboard = 1
 double_sided = false
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_yscv0")
-animation = &"hit"
+animation = &"weak"
 autoplay = "idle"
-frame = 3
-frame_progress = 1.0
 script = ExtResource("10_m0elm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody" unique_id=174862547]
@@ -459,12 +464,26 @@ mesh = SubResource("CylinderMesh_dy6sc")
 [node name="MobDetectionRange" type="Area3D" parent="MobBody" unique_id=1028670662]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 17
 script = ExtResource("9_cixyi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/MobDetectionRange" unique_id=1807867911]
 shape = SubResource("SphereShape3D_ieysi")
 debug_color = Color(0.7712439, 0.3347475, 0.74544847, 0.41960785)
+
+[node name="WorldBoundaryDetection" type="Area3D" parent="MobBody" unique_id=55558203]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/WorldBoundaryDetection" unique_id=421718895]
+shape = SubResource("SphereShape3D_m0elm")
+debug_color = Color(4.764944e-06, 0.6469249, 0.23264673, 0.41960785)
+
+[node name="AttackRange" type="Area3D" parent="MobBody" unique_id=1564588641]
+unique_name_in_owner = true
+collision_layer = 0
+script = ExtResource("12_fla60")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/AttackRange" unique_id=706698041]
+shape = SubResource("SphereShape3D_fla60")
+debug_color = Color(0.95381755, 0.13397694, 0.4330288, 0.41960785)
 
 [node name="MobStateMachine" type="Node" parent="." unique_id=231922724]
 unique_name_in_owner = true
