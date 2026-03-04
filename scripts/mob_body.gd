@@ -122,7 +122,7 @@ func move_toward_or_circle_player() -> void:
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
-	else:
+	elif velocity.y < 0:
 		velocity.y = 0
 
 
