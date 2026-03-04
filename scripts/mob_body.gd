@@ -66,7 +66,6 @@ func handle_movement(delta: float) -> void:
 	if _attacking:
 		attack_range.attack()
 		print("Attacking")
-		return
 
 	if moving_to_random:
 		move_to_random_target()
