@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cu0lix8e86iys" path="res://assets/placeholders/HumanWalk.png" id="6_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://dag13qbr64eni" path="res://assets/placeholders/HumanAttack.png" id="7_3v2ag"]
 [ext_resource type="PackedScene" uid="uid://bujflot7lre6n" path="res://scenes/hit_range.tscn" id="10_y4r1p"]
+[ext_resource type="Script" uid="uid://b6scl6ompk1gu" path="res://scripts/combo_tracker.gd" id="11_d2wvv"]
+[ext_resource type="Script" uid="uid://7u8wq6vt5k8k" path="res://scripts/canvas_layer.gd" id="12_3v2ag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_smehm")
@@ -422,11 +424,6 @@ rings = 2
 [node name="PlayerBody" type="CharacterBody3D" unique_id=1007714887]
 collision_mask = 8
 script = ExtResource("1_cvnsp")
-speed = null
-jump_velocity = null
-upward_boost = null
-knockback_force = null
-knockback_duration = null
 
 [node name="Sprite" type="AnimatedSprite3D" parent="." unique_id=1264239905]
 pixel_size = 0.1
@@ -450,8 +447,24 @@ cast_shadow = 3
 mesh = SubResource("CylinderMesh_6t5aa")
 
 [node name="PlayerController" type="Node" parent="." unique_id=219595080]
+unique_name_in_owner = true
 script = ExtResource("3_qhqgy")
+
+[node name="ComboTracker" type="Node" parent="PlayerController" unique_id=1865265565]
+unique_name_in_owner = true
+script = ExtResource("11_d2wvv")
+combo_window_time = 1.0
+
+[node name="ComboBufferTimer" type="Timer" parent="PlayerController" unique_id=1557739964]
 
 [node name="HitRange" parent="." unique_id=109148305 instance=ExtResource("10_y4r1p")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1603067741]
+script = ExtResource("12_3v2ag")
+
+[node name="ComboDebugLabel" type="Label" parent="CanvasLayer" unique_id=1081822831]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0

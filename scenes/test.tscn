@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cb5wwfnyxck1b" path="res://scenes/mob.tscn" id="1_bl13t"]
 [ext_resource type="PackedScene" uid="uid://c1mh6xrrbxe34" path="res://scenes/player.tscn" id="2_8od7v"]
-[ext_resource type="Script" uid="uid://btplkd5tu1v7n" path="res://scenes/world_boundary.gd" id="3_iyx0m"]
+[ext_resource type="Script" uid="uid://btplkd5tu1v7n" path="res://scripts/world_boundary.gd" id="3_iyx0m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8od7v"]
 sky_top_color = Color(0.45467585, 0.610864, 0.9549419, 1)
@@ -48,10 +48,6 @@ shadow_enabled = true
 [node name="CharacterBody3D" parent="." unique_id=1760293704 instance=ExtResource("2_8od7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.850668, 1.5838685, -0.016652822)
 speed = 8.0
-jump_velocity = 10.5
-upward_boost = 6.0
-knockback_force = 20.0
-knockback_duration = 0.08
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1697077277]
 collision_layer = 8
