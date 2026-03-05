@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://bn3jvjismvf1b" path="res://scripts/detection_range.gd" id="9_cixyi"]
 [ext_resource type="Script" uid="uid://bnfe2wpxsry01" path="res://scripts/mob_state_machine.gd" id="9_ieysi"]
 [ext_resource type="Script" uid="uid://biibln67mfo37" path="res://scripts/mob_sprite.gd" id="10_m0elm"]
-[ext_resource type="Script" uid="uid://ry77jglc0tk4" path="res://scenes/attack_range.gd" id="12_fla60"]
+[ext_resource type="Script" uid="uid://ry77jglc0tk4" path="res://scripts/attack_range.gd" id="12_fla60"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("1_1qmh0")
@@ -429,7 +429,7 @@ radius = 4.0
 radius = 0.95990294
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fla60"]
-radius = 1.2369984
+radius = 1.5113848
 
 [node name="Mob" type="Node3D" unique_id=1799395835]
 script = ExtResource("1_gfurk")

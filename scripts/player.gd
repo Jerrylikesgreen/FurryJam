@@ -1,6 +1,8 @@
 class_name PlayerBody
 extends CharacterBody3D
 
+
+
 @export var speed: float = 4.0
 @export var jump_velocity: float = 10.5
 @onready var player_controller: PlayerController = $PlayerController
@@ -9,6 +11,10 @@ extends CharacterBody3D
 @export var upward_boost := 6.0
 @export var knockback_force := 20.0
 @export var knockback_duration := 0.08
+var combo_buffer_timer: float = 0.0
+@export var combo_buffer_time: float = 0.2  # 0.5 seconds
+@onready var combo_tracker: ComboTracker = %ComboTracker
+
 var _hit: bool = false
 var _facing := 1
 var knockback_timer := 0.0
@@ -37,22 +43,34 @@ func _on_move(dir: Vector2) -> void:
 		_right_facing = true
 	elif dir.x < 0:
 		_right_facing = false
-	
+
+
 func _on_weak_attack() -> void:
-	print("[PlayerBody] Weak Attack Received")
-	_set_animation_state(AnimationState.WEAK)
-	hit_range.hit()
+
+	if combo_buffer_timer <= 0:
+		# Buffer expired → execute attack
+		print("[PlayerBody] Weak Attack Registered, is in Combo")
+		_set_animation_state(AnimationState.WEAK)
+		hit_range.hit()
+		combo_tracker.register_weak()
+
+		# Start buffer
+		combo_buffer_timer = combo_buffer_time
+	else:
+		# Within buffer → ignore input
+		print("[PlayerBody] Weak Attack Ignored Within Buffer")
 
 func _on_strong_attack() -> void:
-	print("[PlayerBody] Strong Attack Received")
-	_set_animation_state(AnimationState.STRONG)
-	hit_range.hit()
 
+	if combo_buffer_timer <= 0:
+		print("[PlayerBody] Strong Attack Registered, is in Combo")
+		_set_animation_state(AnimationState.STRONG)
+		hit_range.hit()
+		combo_tracker.register_strong()
 
-
-
-
-
+		combo_buffer_timer = combo_buffer_time
+	else:
+		print("[PlayerBody] Strong Attack Ignored Within Buffer")
 
 func hit(from_position: Vector3) -> void:
 	if knockback_timer > 0:
@@ -75,6 +93,10 @@ func hit(from_position: Vector3) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Update buffer timer
+	if combo_buffer_timer > 0:
+		combo_buffer_timer -= delta
+
 	# Update input
 	move_input = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
@@ -106,11 +128,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _set_animation_state(new_state: AnimationState) -> void:
-	if _current_animation_state == new_state:
-		return
-	
 	_current_animation_state = new_state
-	
+
 	match new_state:
 		AnimationState.IDLE:
 			sprite.play("idle")
@@ -119,12 +138,16 @@ func _set_animation_state(new_state: AnimationState) -> void:
 		AnimationState.JUMP:
 			sprite.play("jump")
 		AnimationState.WEAK:
+			sprite.stop()  # ensure animation restarts
 			sprite.play("weak")
 		AnimationState.STRONG:
+			sprite.stop()
 			sprite.play("strong")
 		AnimationState.HIT:
+			sprite.stop()
 			sprite.play("hit")
 		AnimationState.DEAD:
+			sprite.stop()
 			sprite.play("dead")
 
 
@@ -161,8 +184,11 @@ func _update_facing() -> void:
 		_facing = -1
 		hit_range.position.x = -offset
 
-
-
+func _is_attack_anim_playing() -> bool:
+	return _current_animation_state in [
+		AnimationState.WEAK,
+		AnimationState.STRONG
+	]
 
 func _on_animation_finished() -> void:
 	if _current_animation_state in [
