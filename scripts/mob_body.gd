@@ -133,6 +133,9 @@ func check_collisions() -> void:
 		var collider = collision.get_collider()
 		if collider and collider is PlayerBody:
 			collider.hit(global_position)
+			if target_player == null:
+				target_player = collider
+				move_toward_or_circle_player()
 			attack()
 			print("Hit Player")
 

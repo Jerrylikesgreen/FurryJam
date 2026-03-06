@@ -471,6 +471,7 @@ shape = SubResource("SphereShape3D_ieysi")
 debug_color = Color(0.7712439, 0.3347475, 0.74544847, 0.41960785)
 
 [node name="WorldBoundaryDetection" type="Area3D" parent="MobBody" unique_id=55558203]
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobBody/WorldBoundaryDetection" unique_id=421718895]
 shape = SubResource("SphereShape3D_m0elm")

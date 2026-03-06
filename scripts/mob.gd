@@ -6,8 +6,8 @@ class_name Mob extends Node3D
 @onready var mob_sprite: MobSprite = %MobSprite
 @onready var mob_state_machine: MobStateMachine = %MobStateMachine
 @onready var mob_detection_range: MobDetectionRange = %MobDetectionRange
-@onready var world_boundary_detection: Area3D = $MobBody/WorldBoundaryDetection
 @onready var attack_range: AttackRange = %AttackRange
+@onready var world_boundary_detection: Area3D = %WorldBoundaryDetection
 
 
 
@@ -38,7 +38,7 @@ func _on_entered_attack_range()->void:
 func _on_exited_attack_range()->void:
 	mob_state_machine.enter_battle(false)
 
-func _on_world_boundary_detected()->void:
+func _on_world_boundary_detected(node: Node3D)->void:
 	mob_body.world_bound_detected()
 	print("Word Detected")
 
