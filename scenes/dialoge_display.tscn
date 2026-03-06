@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dg0gfdx24lmmy"]
+
+[ext_resource type="Script" uid="uid://cqqsr4f7mjir6" path="res://scripts/dialoge_display.gd" id="1_hc6k6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hc6k6"]
+bg_color = Color(0.13725491, 0.13725491, 0.13725491, 0.57254905)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Theme_v50wj"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_hc6k6")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6e0ky"]
+bg_color = Color(0.23753911, 0.23753914, 0.23753911, 0.5568628)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_jjsbb"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_6e0ky")
+
+[sub_resource type="LabelSettings" id="LabelSettings_sxbc5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v50wj"]
+bg_color = Color(0.30692264, 0.3069227, 0.30692258, 0.33333334)
+
+[sub_resource type="Theme" id="Theme_6e0ky"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_v50wj")
+
+[node name="DialogeDisplay" type="CanvasLayer" unique_id=623693527]
+script = ExtResource("1_hc6k6")
+type_speed = 0.01
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=744384887]
+anchors_preset = -1
+anchor_top = 0.813
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -26.824036
+offset_right = -6.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_v50wj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=393047785]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=325201593]
+layout_mode = 2
+
+[node name="Margin" type="Control" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1692865503]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="SpeakerNameContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=293588294]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+theme = SubResource("Theme_jjsbb")
+
+[node name="SpeakerNameLable" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/SpeakerNameContainer" unique_id=1291581212]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Speaker Name"
+label_settings = SubResource("LabelSettings_sxbc5")
+vertical_alignment = 1
+
+[node name="DialogeContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer" unique_id=2127450348]
+layout_mode = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_6e0ky")
+
+[node name="DialogeText" type="RichTextLabel" parent="PanelContainer/VBoxContainer/DialogeContainer" unique_id=1776935913]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Test TEst stststts"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://7c445pyp3vna"]
+
+[ext_resource type="Script" uid="uid://bsh8o5p4npm7j" path="res://scripts/dialoge_trigger.gd" id="1_n3grd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lpvoh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3grd"]
+transparency = 1
+albedo_color = Color(0.1764706, 0.4627451, 0.20392157, 0.29411766)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ldrgu"]
+material = SubResource("StandardMaterial3D_n3grd")
+
+[node name="DialogeTrigger" type="Area3D" unique_id=545540880]
+collision_layer = 0
+script = ExtResource("1_n3grd")
+speaker_name = "Speaker - Tesy"
+dialoge = "Blaw, blaw, blaw. Yayayayay!"
+one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2090442595]
+shape = SubResource("SphereShape3D_lpvoh")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="." unique_id=1076436865]
+mesh = SubResource("SphereMesh_ldrgu")

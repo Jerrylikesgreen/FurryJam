@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cb5wwfnyxck1b" path="res://scenes/mob.tscn" id="1_bl13t"]
 [ext_resource type="PackedScene" uid="uid://c1mh6xrrbxe34" path="res://scenes/player.tscn" id="2_8od7v"]
 [ext_resource type="Script" uid="uid://btplkd5tu1v7n" path="res://scripts/world_boundary.gd" id="3_iyx0m"]
+[ext_resource type="PackedScene" uid="uid://dg0gfdx24lmmy" path="res://scenes/dialoge_display.tscn" id="4_74lek"]
+[ext_resource type="PackedScene" uid="uid://7c445pyp3vna" path="res://scenes/dialoge_trigger.tscn" id="5_j5jx5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8od7v"]
 sky_top_color = Color(0.45467585, 0.610864, 0.9549419, 1)
@@ -30,7 +32,7 @@ size = Vector3(50, 0.5, 25)
 size = Vector3(50, 0.5, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bl13t"]
-size = Vector3(49.682007, 1, 1)
+size = Vector3(49.682007, 6.8359375, 1.2250977)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8od7v"]
 
@@ -47,6 +49,7 @@ shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." unique_id=1760293704 instance=ExtResource("2_8od7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.850668, 1.5838685, -0.016652822)
+collision_mask = 24
 speed = 8.0
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1697077277]
@@ -63,7 +66,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06576538, 0, -0.06072998)
 shape = SubResource("BoxShape3D_lc1oi")
 
 [node name="Mob" parent="." unique_id=1017828540 instance=ExtResource("1_bl13t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84118, 1.6869072, 4.394696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.84118, 1.6869072, 4.397994)
+
+[node name="Mob2" parent="." unique_id=1799395835 instance=ExtResource("1_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.969943, 1.6869072, 4.397994)
+
+[node name="Mob3" parent="." unique_id=1975179516 instance=ExtResource("1_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.969943, 1.6869072, -4.2721176)
+
+[node name="Mob4" parent="." unique_id=2078424420 instance=ExtResource("1_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.796708, 1.6869072, -4.2721176)
 
 [node name="WorldBoundary" type="StaticBody3D" parent="." unique_id=1565774839]
 collision_layer = 16
@@ -71,19 +83,19 @@ collision_mask = 3
 script = ExtResource("3_iyx0m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBoundary" unique_id=849461743]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 0.8143493, 11.941864)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 3.732318, 11.941864)
 shape = SubResource("BoxShape3D_bl13t")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="WorldBoundary" unique_id=1923537233]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 0.8143493, -11.736097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03277588, 3.6393576, -11.736097)
 shape = SubResource("BoxShape3D_bl13t")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="WorldBoundary" unique_id=948882638]
-transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, 24.437536, 0.8143493, 0.5873785)
+transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, 24.550081, 3.5506325, 0.58647686)
 shape = SubResource("BoxShape3D_bl13t")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="WorldBoundary" unique_id=68737773]
-transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, -24.241447, 0.8143493, 0.5873785)
+transform = Transform3D(0.008010973, 0, -0.99996793, 0, 1, 0, 0.99996793, 0, 0.008010973, -24.241447, 3.7755013, 0.5873785)
 shape = SubResource("BoxShape3D_bl13t")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=914300799]
@@ -96,3 +108,9 @@ shape = SubResource("BoxShape3D_8od7v")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=428602347]
 mesh = SubResource("BoxMesh_qc4db")
+
+[node name="DialogeDisplay" parent="." unique_id=623693527 instance=ExtResource("4_74lek")]
+
+[node name="DialogeTrigger" parent="." unique_id=545540880 instance=ExtResource("5_j5jx5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.240383, 0.9508846, 0)
+one_shot = false

@@ -77,6 +77,7 @@ func handle_movement(delta: float) -> void:
 			in_attack_range = false
 			exited_attack_range.emit()
 			_attacking = false
+
 func _stop_movement() -> void:
 	velocity.x = 0
 	velocity.z = 0
@@ -132,6 +133,7 @@ func check_collisions() -> void:
 		var collider = collision.get_collider()
 		if collider and collider is PlayerBody:
 			collider.hit(global_position)
+			attack()
 			print("Hit Player")
 
 func world_bound_detected() -> void:
